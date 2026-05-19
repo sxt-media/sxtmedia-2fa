@@ -16,7 +16,7 @@ require __DIR__ . '/vendor/autoload.php';
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 
 $updateChecker = PucFactory::buildUpdateChecker(
-    'sxt-media/sxtmedia-2fa',
+    'https://github.com/sxt-media/sxtmedia-2fa/',
     __FILE__,
     'sxtmedia-2fa'
 );
