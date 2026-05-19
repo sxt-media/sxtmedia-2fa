@@ -23,35 +23,27 @@ jobs:
       - name: Create ZIP
         run: |
           mkdir build
-
-          rsync -av \
-            --exclude='.git' \
-            --exclude='.github' \
-            --exclude='build' \
-            ./ build/sxtmedia-2fa/
-
+          rsync -av --exclude='.git' --exclude='.github' --exclude='build' ./ build/sxtmedia-2fa/
           cd build
           zip -r sxtmedia-2fa.zip sxtmedia-2fa
 
       - name: Create update metadata
         run: |
           VERSION=${GITHUB_REF_NAME#v}
-
-          cat > build/sxtmedia-2fa.json <<EOF
-{
-  "name": "sxtmedia 2FA Schutz",
-  "slug": "sxtmedia-2fa",
-  "version": "$VERSION",
-  "download_url": "https://github.com/sxt-media/sxtmedia-2fa/releases/download/${GITHUB_REF_NAME}/sxtmedia-2fa.zip",
-  "homepage": "https://github.com/sxt-media/sxtmedia-2fa",
-  "requires": "5.8",
-  "tested": "6.8",
-  "requires_php": "7.4",
-  "sections": {
-    "description": "Erweiterter Zwei-Faktor-Schutz."
-  }
-}
-EOF
+          printf '%s\n' \
+            '{' \
+            '  "name": "sxtmedia 2FA Schutz",' \
+            '  "slug": "sxtmedia-2fa",' \
+            "  \"version\": \"$VERSION\"," \
+            "  \"download_url\": \"https://github.com/sxt-media/sxtmedia-2fa/releases/download/${GITHUB_REF_NAME}/sxtmedia-2fa.zip\"," \
+            '  "homepage": "https://github.com/sxt-media/sxtmedia-2fa",' \
+            '  "requires": "5.8",' \
+            '  "tested": "6.8",' \
+            '  "requires_php": "7.4",' \
+            '  "sections": {' \
+            '    "description": "Erweiterter Zwei-Faktor-Schutz."' \
+            '  }' \
+            '}' > build/sxtmedia-2fa.json
 
       - name: Upload files to release
         uses: softprops/action-gh-release@v2
