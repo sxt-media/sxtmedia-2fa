@@ -5,7 +5,7 @@
  * Description: Erweiterter Zwei-Faktor-Schutz mit Authenticator-App, E-Mail-Verifizierung, Backup-Codes und abgesichertem Login-Flow von sxtmedia.
  * Author: sxtmedia
  * Author URI: https://www.sxt-media.at
- * Version: 3.5
+ * Version: @@VERSION@@
  */
 
 if (!defined('ABSPATH'))
