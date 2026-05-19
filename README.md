@@ -1,34 +1,61 @@
-# sxtmedia-2fa
-WordPress Plugin: Enhanced two-factor authentication with an authenticator app, email verification, backup codes, and a secure login process from sxtmedia.
+# SXT 2FA
 
-# sxtmedia 2FA Schutz
-Erweiterter Zwei-Faktor-Schutz mit Authenticator-App (TOTP), E-Mail-Verifizierung, Backup-Codes und abgesichertem Login-Flow für WordPress.
+Enhanced two-factor authentication for WordPress with TOTP authenticator apps, email verification, backup codes and hardened login security.
 
-# Features
-Multi-Channel 2FA: Unterstützt TOTP-Apps (Google Authenticator, Bitwarden etc.) und E-Mail-Verifizierung.
+---
 
-Brute-Force Schutz: Integriertes IP- und Account-basiertes Rate-Limiting für Login-Versuche.
+## Features
 
-REST-API & XML-RPC Härtung: XML-RPC wird deaktiviert, REST-API erzwingt Authentifizierung und App-Passwörter bei aktivem 2FA.
+### Multi-Channel 2FA
+Supports:
 
-Session-Validierung: Cookie-Validierung via HMAC-SHA256 und User-Agent-Abgleich während des 2FA-Flows.
+- Google Authenticator
+- Bitwarden
+- Authy
+- Microsoft Authenticator
+- E-Mail verification
 
-Sichere Crypto: Verschlüsselung der TOTP-Secrets in der Datenbank mittels OpenSSL (AES-256-GCM).
+### Brute-Force Protection
+Integrated login protection with:
 
-# Anforderungen
-WordPress 6.0+
-PHP 8.0+ (Ergibt sich aus der Nutzung von random_bytes(), random_int() und OpenSSL AEAD)
+- IP-based rate limiting
+- account-based throttling
+- temporary lockouts
 
-# Installation
-Ordner sxtmedia-2fa-schutz in das Verzeichnis /wp-content/plugins/ hochladen.
-Das Plugin über das WordPress-Dashboard aktivieren.
-Die Einrichtung wird für alle Benutzer beim nächsten Admin-Besuch erzwungen.
+### REST API & XML-RPC Hardening
 
-# Technische Details
-Meta-Keys:
-_sxt_2fa_secret (encrypted)
-_sxt_2fa_totp_enabled
-_sxt_2fa_email_enabled
-_sxt_2fa_recovery_codes (hashed)
+- Disables XML-RPC
+- Restricts REST API access
+- Forces authentication for sensitive endpoints
+- Blocks application passwords when 2FA is enabled
 
-Transients: sxt_bf_[md5] (Rate-Limiting), sxt_2fa_[token] (Session-Zwischenspeicher).
+### Secure Login Flow
+
+- HMAC-SHA256 cookie validation
+- user-agent verification
+- temporary signed login sessions
+- protected 2FA challenge flow
+
+### Secure Cryptography
+
+- AES-256-GCM encryption for TOTP secrets
+- OpenSSL-based encryption
+- hashed recovery codes
+- secure token generation using `random_bytes()`
+
+---
+
+## Requirements
+
+- WordPress 6.0+
+- PHP 8.0+
+- OpenSSL extension enabled
+
+---
+
+## Installation
+
+1. Upload the plugin to:
+
+```text
+/wp-content/plugins/sxtmedia-2fa/
