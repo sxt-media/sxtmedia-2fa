@@ -21,8 +21,6 @@ $updateChecker = PucFactory::buildUpdateChecker(
     'sxtmedia-2fa'
 );
 
-$updateChecker->getVcsApi()->enableReleaseAssets();
-
 class SXT_Simple_2FA
 {
     const META_SECRET = '_sxt_2fa_secret';
