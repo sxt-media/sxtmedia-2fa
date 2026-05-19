@@ -1,0 +1,37 @@
+name: Build Release ZIP
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Inject plugin version
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          sed -i "s/@@VERSION@@/$VERSION/g" sxtmedia-2fa.php
+
+      - name: Create ZIP
+        run: |
+          mkdir build
+          rsync -av \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='build' \
+            ./ build/sxtmedia-2fa/
+          cd build
+          zip -r sxtmedia-2fa.zip sxtmedia-2fa
+
+      - name: Upload ZIP to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/sxtmedia-2fa.zip
