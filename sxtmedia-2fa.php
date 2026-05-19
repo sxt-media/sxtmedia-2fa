@@ -1,12 +1,11 @@
 <?php
 /**
- * Plugin Name: sxtmedia 2FA Schutz
+ * Plugin Name: WP 2FA Login
  * Plugin URI: https://www.sxt-media.at
- * Description: Erweiterter Zwei-Faktor-Schutz  mit Authenticator-App, E-Mail-Verifizierung, Backup-Codes und abgesichertem Login-Flow von sxtmedia.
+ * Description: Erweiterter Zwei-Faktor-Schutz  mit Authenticator-App, E-Mail-Verifizierung, Backup-Codes und abgesichertem Login-Flow.
  * Author: sxtmedia
  * Author URI: https://www.sxt-media.at
  * Version: @@VERSION@@
- * 
  */
 
 if (!defined('ABSPATH'))
