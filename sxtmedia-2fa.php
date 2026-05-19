@@ -2,10 +2,10 @@
 /**
  * Plugin Name: sxtmedia 2FA Schutz
  * Plugin URI: https://www.sxt-media.at
- * Description: Erweiterter Zwei-Faktor-Schutz mit Authenticator-App, E-Mail-Verifizierung, Backup-Codes und abgesichertem Login-Flow von sxtmedia.
+ * Description: Erweiterter Zwei-Faktor-Schutz  mit Authenticator-App, E-Mail-Verifizierung, Backup-Codes und abgesichertem Login-Flow von sxtmedia.
  * Author: sxtmedia
  * Author URI: https://www.sxt-media.at
- * Version: @@VERSION@@
+ * Version: 3.8.2
  */
 
 if (!defined('ABSPATH'))
@@ -20,6 +20,8 @@ $updateChecker = PucFactory::buildUpdateChecker(
     __FILE__,
     'sxtmedia-2fa'
 );
+
+$updateChecker->checkForUpdates();
 
 class SXT_Simple_2FA
 {
