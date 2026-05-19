@@ -7,7 +7,7 @@
  * Author URI: https://www.sxt-media.at
  * Version: @@VERSION@@
  * 
- *  */
+ */
 
 if (!defined('ABSPATH'))
     exit;

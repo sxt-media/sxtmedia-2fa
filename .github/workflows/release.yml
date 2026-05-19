@@ -36,13 +36,7 @@ jobs:
             '  "slug": "sxtmedia-2fa",' \
             "  \"version\": \"$VERSION\"," \
             "  \"download_url\": \"https://github.com/sxt-media/sxtmedia-2fa/releases/download/${GITHUB_REF_NAME}/sxtmedia-2fa.zip\"," \
-            '  "homepage": "https://github.com/sxt-media/sxtmedia-2fa",' \
-            '  "requires": "5.8",' \
-            '  "tested": "6.8",' \
-            '  "requires_php": "7.4",' \
-            '  "sections": {' \
-            '    "description": "Erweiterter Zwei-Faktor-Schutz."' \
-            '  }' \
+            '  "homepage": "https://github.com/sxt-media/sxtmedia-2fa"' \
             '}' > build/sxtmedia-2fa.json
 
       - name: Upload files to release
