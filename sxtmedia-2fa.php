@@ -11,6 +11,18 @@
 if (!defined('ABSPATH'))
     exit;
 
+require __DIR__ . '/vendor/autoload.php';
+
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
+$updateChecker = PucFactory::buildUpdateChecker(
+    'https://github.com/sxt-media/sxtmedia-2fa',
+    __FILE__,
+    'sxtmedia-2fa'
+);
+
+$updateChecker->getVcsApi()->enableReleaseAssets();
+
 class SXT_Simple_2FA
 {
     const META_SECRET = '_sxt_2fa_secret';
@@ -22,9 +34,6 @@ class SXT_Simple_2FA
 
     public function __construct()
     {
-        add_filter('pre_set_site_transient_update_plugins', [$this, 'check_update']);
-        add_filter('plugins_api', [$this, 'plugin_info'], 20, 3);
-
         add_action('admin_menu', [$this, 'menu']);
         add_action('admin_bar_menu', [$this, 'adminbar_2fa_status'], 999);
         add_action('admin_init', [$this, 'force_setup']);
@@ -48,53 +57,6 @@ class SXT_Simple_2FA
             unset($actions['deactivate']);
             return $actions;
         });
-    }
-
-    public function check_update($transient)
-    {
-        if (empty($transient->checked))
-            return $transient;
-
-        // sxt-media-comment: JSON vom eigenen Server abfragen
-        $response = wp_remote_get('https://www.sxt-media.at/updates/2fa.json');
-        if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200)
-            return $transient;
-
-        $data = json_decode(wp_remote_retrieve_body($response));
-        if ($data && version_compare('3.2', $data->new_version, '<')) {
-            $plugin_slug = plugin_basename(__FILE__);
-            $transient->response[$plugin_slug] = (object) [
-                'slug' => 'sxtmedia-2fa',
-                'new_version' => $data->new_version,
-                'package' => $data->package,
-                'url' => 'https://github.com/sxt-media/sxtmedia-2fa'
-            ];
-        }
-        return $transient;
-    }
-
-    public function plugin_info($res, $action, $args)
-    {
-        if ($action !== 'plugin_information' || ($args->slug ?? '') !== 'sxtmedia-2fa')
-            return $res;
-
-        $response = wp_remote_get('https://www.sxt-media.at/updates/2fa.json');
-        if (is_wp_error($response))
-            return $res;
-
-        $data = json_decode(wp_remote_retrieve_body($response));
-        if (!$data)
-            return $res;
-
-        return (object) [
-            'name' => 'sxtmedia 2FA Schutz',
-            'slug' => 'sxtmedia-2fa',
-            'version' => $data->new_version,
-            'package' => $data->package,
-            'last_updated' => date('Y-m-d H:i:s'),
-            'sections' => ['description' => 'Erweiterter Zwei-Faktor-Schutz.'],
-            'download_link' => $data->package
-        ];
     }
 
     private static function get_encryption_key()
