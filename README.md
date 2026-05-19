@@ -15,16 +15,13 @@ Session-Validierung: Cookie-Validierung via HMAC-SHA256 und User-Agent-Abgleich 
 
 Sichere Crypto: Verschlüsselung der TOTP-Secrets in der Datenbank mittels OpenSSL (AES-256-GCM).
 
-Anforderungen
+# Anforderungen
 WordPress 6.0+
-
 PHP 8.0+ (Ergibt sich aus der Nutzung von random_bytes(), random_int() und OpenSSL AEAD)
 
-Installation
+# Installation
 Ordner sxtmedia-2fa-schutz in das Verzeichnis /wp-content/plugins/ hochladen.
-
 Das Plugin über das WordPress-Dashboard aktivieren.
-
 Die Einrichtung wird für alle Benutzer beim nächsten Admin-Besuch erzwungen.
 
 # Technische Details
