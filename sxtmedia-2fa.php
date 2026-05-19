@@ -51,10 +51,6 @@ class SXT_Simple_2FA
         add_action('login_form_sxt_2fa', [$this, 'render_2fa_login_step']);
         add_action('login_init', [$this, 'handle_2fa_login_step']);
         add_filter('login_errors', [$this, 'filter_login_errors']);
-        add_filter('plugin_action_links_' . plugin_basename(__FILE__), function ($actions) {
-            unset($actions['deactivate']);
-            return $actions;
-        });
     }
 
     private static function get_encryption_key()
